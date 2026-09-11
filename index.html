@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Main Quest Liepāja — jaunā mājaslapa ir izstrādes procesā."
+    >
+
+    <title>Main Quest Liepāja</title>
+
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+
+    <style>
+        /*
+        |--------------------------------------------------------------------------
+        | Main Quest temporary landing page
+        |--------------------------------------------------------------------------
+        */
+
+        :root {
+            --background: #050d16;
+            --background-2: #071522;
+
+            --panel: #081827;
+            --panel-2: #0b1c2c;
+
+            --border: #18334a;
+            --border-light: #21425b;
+
+            --text: #f2f6fa;
+            --text-secondary: #9aabba;
+            --text-muted: #718698;
+
+            --purple: #9b2d89;
+            --purple-light: #b43a9e;
+
+            --blue: #1aa9df;
+            --blue-dark: #0c719a;
+
+            --max-width: 1100px;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset
+        |--------------------------------------------------------------------------
+        */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+
+            margin: 0;
+            padding: 0;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 8% 0%,
+                    rgba(16, 102, 137, 0.48),
+                    transparent 34%
+                ),
+                radial-gradient(
+                    circle at 95% 90%,
+                    rgba(155, 45, 137, 0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #071a28 0%,
+                    var(--background) 50%,
+                    #050c14 100%
+                );
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Background grid
+        |--------------------------------------------------------------------------
+        */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            opacity: 0.35;
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px
+                );
+
+            background-size: 48px 48px;
+
+            mask-image: linear-gradient(
+                to bottom,
+                black 0%,
+                transparent 90%
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Page
+        |--------------------------------------------------------------------------
+        */
+
+        .page {
+            position: relative;
+            z-index: 1;
+
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Main section
+        |--------------------------------------------------------------------------
+        */
+
+        .main {
+            flex: 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 70px 24px 80px;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Main card
+        |--------------------------------------------------------------------------
+        */
+
+        .card {
+            width: min(680px, 100%);
+
+            padding: 58px 55px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(11, 29, 45, 0.97),
+                    rgba(5, 16, 27, 0.97)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 30px 90px rgba(0, 0, 0, 0.48),
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+            animation: cardAppear 0.7s ease-out;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Logo
+        |--------------------------------------------------------------------------
+        */
+
+        .main-logo {
+            display: block;
+
+            width: 420px;
+            max-width: 75%;
+
+            height: auto;
+
+            margin: 0 auto 38px;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Small heading
+        |--------------------------------------------------------------------------
+        */
+
+        .eyebrow {
+            margin: 0 0 13px;
+
+            color: var(--text-muted);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Heading
+        |--------------------------------------------------------------------------
+        */
+
+        h1 {
+            margin: 0 0 24px;
+
+            color: var(--text);
+
+            font-size: clamp(30px, 5vw, 44px);
+            font-weight: 750;
+            line-height: 1.12;
+
+            letter-spacing: -0.035em;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Description
+        |--------------------------------------------------------------------------
+        */
+
+        .description {
+            max-width: 500px;
+
+            margin: 0 auto;
+
+            color: var(--text-secondary);
+
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Instagram link
+        |--------------------------------------------------------------------------
+        */
+
+        .instagram-link {
+            display: inline-block;
+
+            margin-top: 4px;
+
+            color: #ffffff;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            border-bottom: 1px solid var(--purple);
+
+            transition:
+                color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .instagram-link:hover {
+            color: #d25bc0;
+
+            border-color: #d25bc0;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Countdown
+        |--------------------------------------------------------------------------
+        */
+
+        .redirect {
+            margin-top: 44px;
+
+            padding-top: 30px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .redirect-label {
+            display: block;
+
+            margin-bottom: 14px;
+
+            color: var(--text-muted);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 0.10em;
+
+            text-transform: uppercase;
+        }
+
+        .countdown {
+            display: block;
+
+            min-height: 52px;
+
+            color: #ffffff;
+
+            font-size: 48px;
+            font-weight: 800;
+
+            line-height: 1;
+
+            font-variant-numeric: tabular-nums;
+
+            animation: countdownPulse 1s ease-in-out infinite;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Instagram button
+        |--------------------------------------------------------------------------
+        */
+
+        .instagram-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 44px;
+
+            margin-top: 28px;
+            padding: 0 24px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    #7f2470
+                );
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            text-decoration: none;
+
+            box-shadow:
+                0 8px 25px rgba(155, 45, 137, 0.18);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease;
+        }
+
+        .instagram-button:hover {
+            transform: translateY(-2px);
+
+            filter: brightness(1.1);
+
+            box-shadow:
+                0 12px 30px rgba(155, 45, 137, 0.28);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Interreg section
+        |--------------------------------------------------------------------------
+        */
+
+        .partners-section {
+            width: 100%;
+
+            padding: 0 24px 28px;
+        }
+
+        .partners-container {
+            width: min(var(--max-width), 100%);
+
+            margin: 0 auto;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Project text
+        |--------------------------------------------------------------------------
+        */
+
+        .project-text {
+            margin-bottom: 18px;
+
+            color: #718698;
+
+            font-size: 11px;
+            line-height: 1.65;
+
+            text-align: left;
+        }
+
+        .project-text p {
+            margin: 0 0 10px;
+        }
+
+        .project-text p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Partner logos
+        |--------------------------------------------------------------------------
+        */
+
+        .partners-logos {
+            min-height: 112px;
+
+            padding: 18px 35px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 35px;
+
+            background: #ffffff;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        .partner-logo {
+            display: block;
+
+            max-width: 23%;
+            max-height: 68px;
+
+            width: auto;
+            height: auto;
+
+            object-fit: contain;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Footer
+        |--------------------------------------------------------------------------
+        */
+
+        .footer {
+            padding: 0 24px 25px;
+
+            color: #435666;
+
+            font-size: 10px;
+
+            text-align: center;
+
+            letter-spacing: 0.08em;
+
+            text-transform: uppercase;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Animations
+        |--------------------------------------------------------------------------
+        */
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(18px)
+                    scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        @keyframes countdownPulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.65;
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Tablet
+        |--------------------------------------------------------------------------
+        */
+
+        @media (max-width: 800px) {
+
+            .main {
+                padding-top: 45px;
+                padding-bottom: 55px;
+            }
+
+            .card {
+                padding: 48px 35px;
+            }
+
+            .partners-logos {
+                padding: 20px 25px;
+
+                gap: 25px;
+            }
+
+            .partner-logo {
+                max-width: 22%;
+                max-height: 55px;
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Mobile
+        |--------------------------------------------------------------------------
+        */
+
+        @media (max-width: 600px) {
+
+            .main {
+                padding: 30px 16px 45px;
+            }
+
+            .card {
+                padding: 42px 24px;
+
+                border-radius: 14px;
+            }
+
+            .main-logo {
+                width: 190px;
+                max-width: 75%;
+
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .redirect {
+                margin-top: 35px;
+                padding-top: 25px;
+            }
+
+            .countdown {
+                font-size: 42px;
+            }
+
+            .partners-section {
+                padding: 0 16px 18px;
+            }
+
+            .project-text {
+                font-size: 10px;
+
+                line-height: 1.6;
+            }
+
+            .partners-logos {
+                min-height: auto;
+
+                padding: 20px;
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                justify-items: center;
+
+                gap: 22px;
+            }
+
+            .partner-logo {
+                max-width: 100%;
+                width: 120px;
+                max-height: 52px;
+            }
+
+            .footer {
+                padding-bottom: 18px;
+
+                font-size: 9px;
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Very small screens
+        |--------------------------------------------------------------------------
+        */
+
+        @media (max-width: 380px) {
+
+            .card {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .partners-logos {
+                grid-template-columns: 1fr 1fr;
+
+                gap: 18px 10px;
+            }
+
+            .partner-logo {
+                width: 105px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    {{-- ================================================================
+         MAIN LANDING SECTION
+         ================================================================ --}}
+
+    <main class="main">
+
+        <section class="card">
+
+            {{-- Main Quest logo --}}
+            <img
+                src="{{ asset('images/mainquest-logo.png') }}"
+                alt="Main Quest Liepāja"
+                class="main-logo"
+            >
+
+
+            <!--<p class="eyebrow">
+                Main Quest Liepāja
+            </p>-->
+
+
+            <h1>
+                Jauna mājaslapa ir
+                izstrādes procesā.
+            </h1>
+
+
+            <p class="description">
+
+                Šobrīd rezervācijas ir iespējams veikt,
+                kontaktējoties ar mums
+
+                <a
+                    href="https://www.instagram.com/main.quest.liepaja"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="instagram-link"
+                >
+                    Instagram
+                </a>.
+
+            </p>
+
+
+            {{-- Countdown --}}
+            <div class="redirect">
+
+                <span class="redirect-label">
+                    Tiksi pārvirzīts uz Instagram pēc
+                </span>
+
+
+                <span
+                    id="countdown"
+                    class="countdown"
+                >
+                    15
+                </span>
+
+
+                <a
+                    href="https://www.instagram.com/main.quest.liepaja"
+                    class="instagram-button"
+                >
+                    Pāriet uz Instagram
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    {{-- ================================================================
+         INTERREG / PROJECT INFORMATION
+         ================================================================ --}}
+
+    <section class="partners-section">
+
+        <div class="partners-container">
+
+
+            <div class="project-text">
+
+                <p>
+                    Centrs izveidots projekta
+                    “Digitālā jauniešu centra attīstība Liepājā un Klaipēdā”
+                    ietvaros. Projekta mērķis ir veicināt sociālās atstumtības
+                    riskam pakļauto jauniešu iekļaušanu sabiedrībā, izmantojot
+                    digitālās tehnoloģijas un personalizētu pieeju. Īpaša
+                    uzmanība projektā pievērsta jauniešiem ar procesu atkarību
+                    riskiem, palīdzot viņiem stiprināt sociālās prasmes, veidot
+                    piederības sajūtu, attīstīt digitālās iemaņas un atrast
+                    pozitīvus veidus, kā iesaistīties sabiedriskajā dzīvē.
+                </p>
+
+                <p>
+                    Projekts tiek īstenots ar Interreg VI-A Latvijas–Lietuvas
+                    programmas atbalstu. Tā kopējais ilgums ir 24 mēneši, un
+                    kopējais budžets ir 416 727,50 EUR, no kuriem 80 %
+                    finansē Eiropas Reģionālās attīstības fonds.
+                </p>
+
+            </div>
+
+
+            {{-- ============================================================
+                 PARTNER LOGOS
+
+                 Put these files in:
+
+                 public/images/
+
+                 mainquest-logo.png
+                 interreg-eu.png
+                 klaipeda.png
+                 liepaja.png
+                 youplus.png
+                 ============================================================ --}}
+
+            <div class="partners-logos">
+
+                <img
+                    src="{{ asset('images/interreg-eu.png') }}"
+                    alt="Interreg VI-A Latvia–Lithuania un Eiropas Savienība"
+                    class="partner-logo"
+                >
+
+                <img
+                    src="{{ asset('images/klaipeda.png') }}"
+                    alt="Klaipėda"
+                    class="partner-logo"
+                >
+
+                <img
+                    src="{{ asset('images/liepaja.png') }}"
+                    alt="Liepāja"
+                    class="partner-logo"
+                >
+
+                <img
+                    src="{{ asset('images/youpluss.png') }}"
+                    alt="you+"
+                    class="partner-logo"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+        Main Quest Liepāja, 2026
+    </footer>
+
+</div>
+
+
+{{-- ================================================================
+     COUNTDOWN / REDIRECT
+     ================================================================ --}}
+
+<script>
+
+    const redirectUrl =
+        'https://www.instagram.com/main.quest.liepaja';
+
+    let seconds = 15;
+
+    const countdown =
+        document.getElementById('countdown');
+
+
+    const timer = setInterval(() => {
+
+        seconds--;
+
+        countdown.textContent = seconds;
+
+
+        if (seconds <= 0) {
+
+            
+
+            clearInterval(timer);
+
+            window.location.href = redirectUrl;
+
+            
+        }
+
+    }, 1000);
+
+</script>
+
+</body>
+</html>
